@@ -21,3 +21,17 @@ jobs:
 
       - name: Test
         run: ctest --test-dir build --output-on-failure
+
+  path-check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check commit path separation
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: scripts/check-commit-paths.sh "$BASE" "$HEAD"
