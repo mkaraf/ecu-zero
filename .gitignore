@@ -1,3 +1,4 @@
 build/
-CLAUDE.md
 firmware/build/
+*:Zone.Identifier
+*.code-workspace
